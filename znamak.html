@@ -78,10 +78,16 @@
       }
     </style>
   </head>
+
   <body>
     <div id="header">
       <img src="https://i.imgur.com/ejSn6aa.png" alt="LFWB Logo" />
     </div>
+
+    <div>
+      <canvas id="myCanvas" width="128" height="128"></canvas>
+    </div>
+
     <div class="content">
       <div class="grid-container" id="gridContainer"></div>
     </div>
@@ -105,6 +111,28 @@
       let removedIteration = [];
       let showNumbers = true;
 
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const numColumns = 11;
+      const numRows = 15;
+      const cellWidth = Math.round(canvas.width / numColumns);
+      const cellHeight = Math.round(canvas.height / numRows);
+
+      let img = new Image();
+      //why in gods name does this requires cors
+      img.crossOrigin = "anonymous";
+      img.src = "https://i.imgur.com/U7mevkM.png";
+
+      img.onload = function () {
+        ctx.drawImage(img, 0, 0);
+
+        let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        let data = imageData.data;
+
+        ctx.putImageData(imageData, 0, 0);
+      };
+
       // Create the grid
       for (let i = 0; i < 11; i++) {
         for (let j = 0; j < 15; j++) {
@@ -121,6 +149,11 @@
 
       // Toggle color and update click count
       function toggleColorAndCount(gridItem) {
+        const gridIndex = Array.from(gridItem.parentNode.children).indexOf(
+          gridItem
+        );
+
+        console.log(gridIndex);
         if (gridItem.style.backgroundColor === "black") {
           gridItem.style.backgroundColor = "white";
           gridItem.classList.remove("black");
@@ -146,6 +179,30 @@
         removedIteration.sort();
 
         maxClickCount = Math.max(maxClickCount, clickCount);
+
+        // Get the image data
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+
+        // Define the start and end coordinates
+        const startX = 60;
+        const endX = 64;
+        const startY = 44;
+        const endY = 48;
+
+        // Loop through the specified region and set the color of each pixel to black
+        for (let y = startY; y < endY; y++) {
+          for (let x = startX; x < endX; x++) {
+            const index = (y * canvas.width + x) * 4;
+            data[index] = 0; // Red channel
+            data[index + 1] = 0; // Green channel
+            data[index + 2] = 0; // Blue channel
+            // Alpha channel (transparency) is unchanged
+          }
+        }
+
+        // Put the modified image data back onto the canvas
+        ctx.putImageData(imageData, 0, 0);
       }
 
       // Save grid as image
