@@ -184,19 +184,29 @@
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const data = imageData.data;
 
+        const skinColor = "#FFCA95";
+
+        const tatStartX = 40;
+        const tatStartY = 44;
+        const tatEndX = 44;
+        const tatEndY = 48;
+        let offset = 4 * gridIndex;
+
         // Define the start and end coordinates
-        const startX = 60;
-        const endX = 64;
-        const startY = 44;
-        const endY = 48;
+        let startX = tatStartX + offset;
+        let endX = tatEndX + offset;
+        let startY = tatStartY;
+        let endY = tatEndY;
+
+        console.log(startX);
 
         // Loop through the specified region and set the color of each pixel to black
         for (let y = startY; y < endY; y++) {
           for (let x = startX; x < endX; x++) {
             const index = (y * canvas.width + x) * 4;
-            data[index] = 0; // Red channel
-            data[index + 1] = 0; // Green channel
-            data[index + 2] = 0; // Blue channel
+            data[index] = 53; // Red channel
+            data[index + 1] = 41; // Green channel
+            data[index + 2] = 18; // Blue channel
             // Alpha channel (transparency) is unchanged
           }
         }
