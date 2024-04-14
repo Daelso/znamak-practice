@@ -158,8 +158,6 @@
       const cellWidth = Math.round(canvas.width / numColumns);
       const cellHeight = Math.round(canvas.height / numRows);
 
-      renderCanvas(canvas, ctx);
-
       // Create the grid
       for (let i = 0; i < 11; i++) {
         for (let j = 0; j < 15; j++) {
@@ -174,6 +172,7 @@
         }
       }
       const gridItems = document.querySelectorAll(".grid-item");
+      renderCanvas(canvas, ctx, gridItems);
 
       gridItems.forEach((cell, index) => {
         // Calculate the position in the row (0-10)
@@ -189,10 +188,6 @@
 
       // Toggle color and update click count
       function toggleColorAndCount(gridItem) {
-        const gridIndex = Array.from(gridItem.parentNode.children).indexOf(
-          gridItem
-        );
-
         if (gridItem.style.backgroundColor === "black") {
           gridItem.style.backgroundColor = "white";
           gridItem.classList.remove("black");
@@ -266,7 +261,7 @@
 
       turnButton.addEventListener("click", () => {
         bodyObj.direction = bodyObj.direction === 0 ? 1 : 0;
-        renderCanvas(canvas, ctx);
+        renderAndRedrawCanvas(canvas, ctx, gridItems);
       });
     </script>
   </body>
