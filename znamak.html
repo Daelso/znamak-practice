@@ -139,6 +139,7 @@
         for (let j = 0; j < 15; j++) {
           const gridItem = document.createElement("div");
           gridItem.classList.add("grid-item");
+
           gridItem.dataset.clickCount = 0;
           gridItem.addEventListener("click", () =>
             toggleColorAndCount(gridItem)
@@ -148,6 +149,14 @@
       }
       const gridItems = document.querySelectorAll(".grid-item");
 
+      gridItems.forEach((cell, index) => {
+        // Calculate the position in the row (0-10)
+        const positionInRow = index % 11;
+
+        // Assign the data attribute
+        cell.dataset.positionInRow = positionInRow;
+      });
+
       // Toggle color and update click count
       function toggleColorAndCount(gridItem) {
         const gridIndex = Array.from(gridItem.parentNode.children).indexOf(
@@ -155,6 +164,8 @@
         );
 
         console.log(gridIndex);
+
+        console.log(gridItem.dataset.positionInRow);
         if (gridItem.style.backgroundColor === "black") {
           gridItem.style.backgroundColor = "white";
           gridItem.classList.remove("black");
