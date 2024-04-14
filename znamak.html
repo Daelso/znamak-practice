@@ -88,6 +88,10 @@
       <canvas id="myCanvas" width="128" height="128"></canvas>
     </div>
 
+    <div class="infoBlurbContainer">
+      Non-fatties do not display the left and right column.
+    </div>
+
     <div class="content">
       <div class="grid-container" id="gridContainer"></div>
     </div>
@@ -202,8 +206,9 @@
         const xOffSet = gridItem.dataset.positionInRow;
         const yOffSet = gridItem.dataset.yNum;
 
+        if (doNotChangePixel(bodyObj, xOffSet)) return;
         ctx.putImageData(
-          changePixelColor(imageData, data, xOffSet, yOffSet),
+          changePixelColor(imageData, data, xOffSet, yOffSet, bodyObj),
           0,
           0
         );
