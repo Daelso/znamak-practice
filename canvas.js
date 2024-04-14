@@ -6,18 +6,19 @@ const colorCheck = (red) => {
   return false;
 };
 
-const changePixelColor = (imageData, data, rowPosition) => {
+const changePixelColor = (imageData, data, rowPosition, yNum) => {
   const tatStartX = 40;
   const tatStartY = 44;
   const tatEndX = 44;
   const tatEndY = 48;
-  let offset = 4 * rowPosition;
+  let xOffSet = 4 * rowPosition;
+  let yOffSet = 4 * yNum;
 
   // Define the start and end coordinates
-  let startX = tatStartX + offset;
-  let endX = tatEndX + offset;
-  let startY = tatStartY;
-  let endY = tatEndY;
+  let startX = tatStartX + xOffSet;
+  let endX = tatEndX + xOffSet;
+  let startY = tatStartY + yOffSet;
+  let endY = tatEndY + yOffSet;
 
   console.log(startX);
 
