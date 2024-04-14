@@ -5,8 +5,45 @@ const colorCheck = (red) => {
   }
   return false;
 };
+//body obj: type/fat/direction
+
+const imageLinks = {
+  "000": "https://i.imgur.com/U7mevkM.png", //not fat male front
+  "001": "image1.png", // not fat male back
+  "010": "image2.png", // fat male front
+  "011": "image3.png", //fat male back
+  100: "image4.png", //not fat female front
+  101: "image5.png", //not fat female back
+  110: "image6.png", //fat female front
+  111: "image7.png", //fat female back
+};
+
+const getImage = (bodyObj) => {
+  const key = `${Number(bodyObj.bodyType)}${Number(bodyObj.fat)}${Number(
+    bodyObj.direction
+  )}`;
+  return imageLinks[key] || "https://i.imgur.com/U7mevkM.png";
+};
+
+// fat types
+//not fat === 0
+//fat === 1
+
+//body types
+//male === 0
+//female === 1
+
+//fat bodies show the outer rows
+
+const isFat = (fat) => {
+  return fat === 1 ? true : false;
+};
+
+const calculateStartingPoint = (isFat) => {};
 
 const changePixelColor = (imageData, data, rowPosition, yNum) => {
+  console.log(rowPosition);
+
   const tatStartX = 40;
   const tatStartY = 44;
   const tatEndX = 44;

@@ -107,6 +107,8 @@
       const hideNums = document.getElementById("hideNums");
       const clearGrid = document.getElementById("clearGrid");
       const fileName = document.getElementById("filename");
+      const bodyObj = { bodyType: 0, fat: 0, direction: 0 };
+
       let clickCount = 0;
       let maxClickCount = 0;
       let removedIteration = [];
@@ -123,7 +125,8 @@
       let img = new Image();
       //why in gods name does this requires cors
       img.crossOrigin = "anonymous";
-      img.src = "https://i.imgur.com/U7mevkM.png";
+      //Also can't be local for some dumb reason, has to be a remote resource to load properly
+      img.src = getImage(bodyObj);
 
       img.onload = function () {
         ctx.drawImage(img, 0, 0);
