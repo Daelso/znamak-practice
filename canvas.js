@@ -20,8 +20,6 @@ const changePixelColor = (imageData, data, rowPosition, yNum) => {
   let startY = tatStartY + yOffSet;
   let endY = tatEndY + yOffSet;
 
-  console.log(startX);
-
   // Loop through the specified region and set the color of each pixel to black
   for (let y = startY; y < endY; y++) {
     for (let x = startX; x < endX; x++) {
