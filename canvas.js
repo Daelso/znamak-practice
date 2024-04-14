@@ -6,25 +6,12 @@ const colorCheck = (red) => {
   return false;
 };
 
-//This is how we move down the y axis of the canvas
-const getSecondDigit = (num) => {
-  if (num >= 0 && num <= 9) {
-    return num;
-  } else if (num >= 10 && num <= 99) {
-    return Math.floor(num / 10) % 10;
-  } else if (num >= 100) {
-    return Math.floor(num / 100) % 10;
-  } else {
-    return null;
-  }
-};
-
-const changePixelColor = (imageData, data, gridIndex) => {
+const changePixelColor = (imageData, data, rowPosition) => {
   const tatStartX = 40;
   const tatStartY = 44;
   const tatEndX = 44;
   const tatEndY = 48;
-  let offset = 4 * getSecondDigit(gridIndex);
+  let offset = 4 * rowPosition;
 
   // Define the start and end coordinates
   let startX = tatStartX + offset;
