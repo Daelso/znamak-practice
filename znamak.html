@@ -117,6 +117,7 @@
 
     <div class="button-container">
       <button id="turnButton">Turn Sprite</button>
+      <button id="changeBackgroundButton">Change Background</button>
     </div>
 
     <div class="infoBlurbContainer">
@@ -263,6 +264,31 @@
         bodyObj.direction = bodyObj.direction === 0 ? 1 : 0;
         renderAndRedrawCanvas(canvas, ctx, gridItems);
       });
+
+      // Array of background image URLs
+      const backgroundImages = [
+        "./images/znamak_bg1.png",
+        "./images/znamak_bg2.png",
+        "./images/znamak_bg3.png",
+        "./images/znamak_bg4.png",
+      ];
+
+      // Index to keep track of the current background image
+      let currentBackgroundIndex = 0;
+
+      // Function to change the background image
+      const changeBackgroundImage = () => {
+        const backgroundCanvas = document.querySelector(".background-canvas");
+        currentBackgroundIndex =
+          (currentBackgroundIndex + 1) % backgroundImages.length;
+        backgroundCanvas.style.backgroundImage = `url(${backgroundImages[currentBackgroundIndex]})`;
+      };
+
+      // Add event listener to the button
+      const changeBackgroundButton = document.getElementById(
+        "changeBackgroundButton"
+      );
+      changeBackgroundButton.addEventListener("click", changeBackgroundImage);
     </script>
   </body>
 </html>
