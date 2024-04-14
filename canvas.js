@@ -94,23 +94,62 @@ const changePixelColor = (imageData, data, gridItem, bodyObj) => {
       data[index + 2] = isSkinColor ? 149 : 18; // Blue channel
     }
   }
-
   return imageData;
 };
 
-const renderCanvas = (canvas, ctx) => {
+const renderCanvas = (canvas, ctx, gridItems) => {
   let img = new Image();
-  //why in gods name does this requires cors
   img.crossOrigin = "anonymous";
-  //Also can't be local for some dumb reason, has to be a remote resource to load properly
+  img.src = getImage(bodyObj);
+
+  img.onload = function () {
+    ctx.drawImage(img, 0, 0);
+    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    ctx.putImageData(imageData, 0, 0);
+  };
+};
+
+const renderAndRedrawCanvas = (canvas, ctx, gridItems) => {
+  let img = new Image();
+  img.crossOrigin = "anonymous";
   img.src = getImage(bodyObj);
 
   img.onload = function () {
     ctx.drawImage(img, 0, 0);
 
+    // Get the image data
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     let data = imageData.data;
 
+    const { tatStartX, tatEndX, tatStartY, tatEndY } =
+      getStartingPoint(bodyObj);
+
+    gridItems.forEach((gridItem) => {
+      if (gridItem.dataset.isTatted == 1) {
+        let xOffSet = 4 * gridItem.dataset.positionInRow;
+        let yOffSet = 4 * gridItem.dataset.yNum;
+
+        // Define the start and end coordinates
+        let startX = tatStartX + xOffSet;
+        let endX = tatEndX + xOffSet;
+        let startY = tatStartY + yOffSet;
+        let endY = tatEndY + yOffSet;
+
+        for (let y = startY; y < endY; y++) {
+          for (let x = startX; x < endX; x++) {
+            const index = (y * canvas.width + x) * 4;
+
+            // Assign colors based on the condition
+            data[index] = 53; // Red channel
+            data[index + 1] = 41; // Green channel
+            data[index + 2] = 18; // Blue channel
+          }
+        }
+      }
+    });
+
+    // Put the modified image data back onto the canvas
     ctx.putImageData(imageData, 0, 0);
   };
 };
