@@ -100,6 +100,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+    <script type="text/javascript" src="canvas.js"></script>
     <script>
       const gridContainer = document.getElementById("gridContainer");
       const saveButton = document.getElementById("saveButton");
@@ -179,40 +180,12 @@
         removedIteration.sort();
 
         maxClickCount = Math.max(maxClickCount, clickCount);
+        //Canvas stuff, check canvas.js
 
-        // Get the image data
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const data = imageData.data;
-
-        const skinColor = "#FFCA95";
-
-        const tatStartX = 40;
-        const tatStartY = 44;
-        const tatEndX = 44;
-        const tatEndY = 48;
-        let offset = 4 * gridIndex;
-
-        // Define the start and end coordinates
-        let startX = tatStartX + offset;
-        let endX = tatEndX + offset;
-        let startY = tatStartY;
-        let endY = tatEndY;
-
-        console.log(startX);
-
-        // Loop through the specified region and set the color of each pixel to black
-        for (let y = startY; y < endY; y++) {
-          for (let x = startX; x < endX; x++) {
-            const index = (y * canvas.width + x) * 4;
-            data[index] = 53; // Red channel
-            data[index + 1] = 41; // Green channel
-            data[index + 2] = 18; // Blue channel
-            // Alpha channel (transparency) is unchanged
-          }
-        }
-
         // Put the modified image data back onto the canvas
-        ctx.putImageData(imageData, 0, 0);
+        ctx.putImageData(changePixelColor(imageData, data, gridIndex), 0, 0);
       }
 
       // Save grid as image
