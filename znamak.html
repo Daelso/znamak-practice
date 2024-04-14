@@ -42,6 +42,21 @@
         background-color: black;
         color: yellow;
       }
+      .button-container {
+        margin-top: 10px;
+        gap: 10px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      .button-container label {
+        margin-right: 10px;
+      }
+      .button-container input {
+        padding: 5px;
+        border-radius: 5px;
+        border: none;
+      }
       .save-container {
         margin-top: 10px;
         gap: 10px;
@@ -66,6 +81,13 @@
         margin-bottom: 1rem;
       }
 
+      .background-canvas {
+        background-image: url(./images/znamak_bg1.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+
       @media screen and (max-width: 600px) {
         .grid-container {
           grid-template-columns: repeat(11, 30px);
@@ -85,7 +107,17 @@
     </div>
 
     <div>
-      <canvas id="myCanvas" width="128" height="128"></canvas>
+      <canvas
+        id="myCanvas"
+        width="128"
+        height="128"
+        class="background-canvas"
+      ></canvas>
+    </div>
+
+    <div class="button-container">
+      <button id="turnButton">Turn Sprite</button>
+      <button id="changeBackgroundButton">Change Background</button>
     </div>
 
     <div class="infoBlurbContainer">
@@ -108,6 +140,7 @@
     <script>
       const gridContainer = document.getElementById("gridContainer");
       const saveButton = document.getElementById("saveButton");
+      const turnButton = document.getElementById("turnButton");
       const hideNums = document.getElementById("hideNums");
       const clearGrid = document.getElementById("clearGrid");
       const fileName = document.getElementById("filename");
@@ -126,21 +159,6 @@
       const cellWidth = Math.round(canvas.width / numColumns);
       const cellHeight = Math.round(canvas.height / numRows);
 
-      let img = new Image();
-      //why in gods name does this requires cors
-      img.crossOrigin = "anonymous";
-      //Also can't be local for some dumb reason, has to be a remote resource to load properly
-      img.src = getImage(bodyObj);
-
-      img.onload = function () {
-        ctx.drawImage(img, 0, 0);
-
-        let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        let data = imageData.data;
-
-        ctx.putImageData(imageData, 0, 0);
-      };
-
       // Create the grid
       for (let i = 0; i < 11; i++) {
         for (let j = 0; j < 15; j++) {
@@ -155,6 +173,7 @@
         }
       }
       const gridItems = document.querySelectorAll(".grid-item");
+      renderCanvas(canvas, ctx, gridItems);
 
       gridItems.forEach((cell, index) => {
         // Calculate the position in the row (0-10)
@@ -163,16 +182,13 @@
         const yNum = Math.floor(index / 11);
 
         // Assign the data attribute
+        cell.dataset.isTatted = 0;
         cell.dataset.positionInRow = positionInRow;
         cell.dataset.yNum = yNum;
       });
 
       // Toggle color and update click count
       function toggleColorAndCount(gridItem) {
-        const gridIndex = Array.from(gridItem.parentNode.children).indexOf(
-          gridItem
-        );
-
         if (gridItem.style.backgroundColor === "black") {
           gridItem.style.backgroundColor = "white";
           gridItem.classList.remove("black");
@@ -206,9 +222,9 @@
         const xOffSet = gridItem.dataset.positionInRow;
         const yOffSet = gridItem.dataset.yNum;
 
-        if (doNotChangePixel(bodyObj, xOffSet)) return;
+        if (doNotChangePixel(bodyObj, xOffSet, gridItem)) return;
         ctx.putImageData(
-          changePixelColor(imageData, data, xOffSet, yOffSet, bodyObj),
+          changePixelColor(imageData, data, gridItem, bodyObj),
           0,
           0
         );
@@ -243,6 +259,37 @@
       clearGrid.addEventListener("click", () => {
         location.reload();
       });
+
+      turnButton.addEventListener("click", () => {
+        bodyObj.direction = bodyObj.direction === 0 ? 1 : 0;
+        renderAndRedrawCanvas(canvas, ctx, gridItems);
+      });
+
+      // Array of background image URLs
+      const backgroundImages = [
+        "./images/znamak_bg1.png",
+        "./images/znamak_bg2.png",
+        "./images/znamak_bg3.png",
+        "./images/znamak_bg4.png",
+        null,
+      ];
+
+      // Index to keep track of the current background image
+      let currentBackgroundIndex = 0;
+
+      // Function to change the background image
+      const changeBackgroundImage = () => {
+        const backgroundCanvas = document.querySelector(".background-canvas");
+        currentBackgroundIndex =
+          (currentBackgroundIndex + 1) % backgroundImages.length;
+        backgroundCanvas.style.backgroundImage = `url(${backgroundImages[currentBackgroundIndex]})`;
+      };
+
+      // Add event listener to the button
+      const changeBackgroundButton = document.getElementById(
+        "changeBackgroundButton"
+      );
+      changeBackgroundButton.addEventListener("click", changeBackgroundImage);
     </script>
   </body>
 </html>
