@@ -1,9 +1,22 @@
+//if tatted true
 const colorCheck = (red) => {
   if (red === 53) {
-    console.log("skin is tatted");
     return true;
   }
   return false;
+};
+
+//This is how we move down the y axis of the canvas
+const getSecondDigit = (num) => {
+  if (num >= 0 && num <= 9) {
+    return num;
+  } else if (num >= 10 && num <= 99) {
+    return Math.floor(num / 10) % 10;
+  } else if (num >= 100) {
+    return Math.floor(num / 100) % 10;
+  } else {
+    return null;
+  }
 };
 
 const changePixelColor = (imageData, data, gridIndex) => {
@@ -11,16 +24,13 @@ const changePixelColor = (imageData, data, gridIndex) => {
   const tatStartY = 44;
   const tatEndX = 44;
   const tatEndY = 48;
-  let offset = 4 * gridIndex;
+  let offset = 4 * getSecondDigit(gridIndex);
 
   // Define the start and end coordinates
   let startX = tatStartX + offset;
   let endX = tatEndX + offset;
   let startY = tatStartY;
   let endY = tatEndY;
-
-  const tatColor = 0xff29129; // Equivalent to (53, 41, 18) in hexadecimal
-  const skinColor = 0xffcacb95; // Equivalent to (255, 202, 149) in hexadecimal
 
   console.log(startX);
 
