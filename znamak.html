@@ -153,8 +153,11 @@
         // Calculate the position in the row (0-10)
         const positionInRow = index % 11;
 
+        const yNum = Math.floor(index / 11);
+
         // Assign the data attribute
         cell.dataset.positionInRow = positionInRow;
+        cell.dataset.yNum = yNum;
       });
 
       // Toggle color and update click count
@@ -196,8 +199,11 @@
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const data = imageData.data;
         // Put the modified image data back onto the canvas
+        const xOffSet = gridItem.dataset.positionInRow;
+        const yOffSet = gridItem.dataset.yNum;
+
         ctx.putImageData(
-          changePixelColor(imageData, data, gridItem.dataset.positionInRow),
+          changePixelColor(imageData, data, xOffSet, yOffSet),
           0,
           0
         );
