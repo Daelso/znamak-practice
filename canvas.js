@@ -11,8 +11,8 @@ const imageLinks = {
   "001": "https://i.imgur.com/w8rdJci.png", // not fat male back
   "010": "https://i.imgur.com/Ab1T1KA.png", // fat male front
   "011": "https://i.imgur.com/7waSJ7M.png", //fat male back
-  100: "image4.png", //not fat female front
-  101: "image5.png", //not fat female back
+  100: "https://i.imgur.com/h7VtDAN.png", //not fat female front
+  101: "https://i.imgur.com/jegcOYX.png", //not fat female back
   110: "image6.png", //fat female front
   111: "image7.png", //fat female back
 };
@@ -22,10 +22,10 @@ const startingPoints = {
   "001": { tatStartX: 40, tatEndX: 44, tatStartY: 44, tatEndY: 48 }, // not fat male back
   "010": { tatStartX: 40, tatEndX: 44, tatStartY: 48, tatEndY: 52 }, // fat male front
   "011": { tatStartX: 40, tatEndX: 44, tatStartY: 48, tatEndY: 52 }, //fat male back
-  100: { startX: 40, endX: 44, startY: 44, endY: 48 }, //not fat female front
-  101: { startX: 40, endX: 44, startY: 44, endY: 48 }, //not fat female back
-  110: { startX: 40, endX: 44, startY: 44, endY: 48 }, //fat female front
-  111: { startX: 40, endX: 44, startY: 44, endY: 48 }, //fat female back
+  100: { tatStartX: 40, tatEndX: 44, tatStartY: 44, tatEndY: 48 }, //not fat female front
+  101: { tatStartX: 40, tatEndX: 44, tatStartY: 44, tatEndY: 48 }, //not fat female back
+  110: { tatStartX: 40, tatEndX: 44, tatStartY: 44, tatEndY: 48 }, //fat female front
+  111: { tatStartX: 40, tatEndX: 44, tatStartY: 44, tatEndY: 48 }, //fat female back
 };
 
 const getImage = (bodyObj) => {
@@ -111,6 +111,8 @@ const renderCanvas = (canvas, ctx, gridItems) => {
 };
 
 const renderAndRedrawCanvas = (canvas, ctx, gridItems) => {
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   let img = new Image();
   img.crossOrigin = "anonymous";
   img.src = getImage(bodyObj);
