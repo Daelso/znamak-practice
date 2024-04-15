@@ -51,9 +51,11 @@
       .button-container {
         margin-top: 10px;
         gap: 10px;
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        grid-template-rows: repeat(2, auto); /* 2 rows */
         align-items: center;
-        flex-direction: column;
+        justify-content: center;
       }
       .button-container label {
         margin-right: 10px;
@@ -108,11 +110,7 @@
   </head>
 
   <body>
-    <div id="header">
-      <img src="https://i.imgur.com/ejSn6aa.png" alt="LFWB Logo" />
-    </div>
-
-    <div>
+    <div style="margin-top: 85px; max-height: 300px">
       <canvas
         id="myCanvas"
         width="128"
