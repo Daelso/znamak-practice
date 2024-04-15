@@ -22,8 +22,8 @@ const startingPoints = {
   "001": { tatStartX: 40, tatEndX: 44, tatStartY: 44, tatEndY: 48 }, // not fat male back
   "010": { tatStartX: 40, tatEndX: 44, tatStartY: 48, tatEndY: 52 }, // fat male front
   "011": { tatStartX: 40, tatEndX: 44, tatStartY: 48, tatEndY: 52 }, //fat male back
-  100: { tatStartX: 40, tatEndX: 44, tatStartY: 44, tatEndY: 48 }, //not fat female front
-  101: { tatStartX: 40, tatEndX: 44, tatStartY: 44, tatEndY: 48 }, //not fat female back
+  100: { tatStartX: 40, tatEndX: 44, tatStartY: 48, tatEndY: 52 }, //not fat female front
+  101: { tatStartX: 40, tatEndX: 44, tatStartY: 48, tatEndY: 52 }, //not fat female back
   110: { tatStartX: 40, tatEndX: 44, tatStartY: 44, tatEndY: 48 }, //fat female front
   111: { tatStartX: 40, tatEndX: 44, tatStartY: 44, tatEndY: 48 }, //fat female back
 };
