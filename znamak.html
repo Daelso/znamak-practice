@@ -123,6 +123,7 @@
 
     <div class="button-container">
       <button id="turnButton">Turn Sprite</button>
+      <button id="toggleType">Toggle Body Type</button>
       <button id="toggleFat">Toggle Fat</button>
       <button id="changeBackgroundButton">Change Background</button>
     </div>
@@ -149,6 +150,8 @@
       const saveButton = document.getElementById("saveButton");
       const turnButton = document.getElementById("turnButton");
       const toggleFat = document.getElementById("toggleFat");
+      const toggleType = document.getElementById("toggleType");
+
       const hideNums = document.getElementById("hideNums");
       const clearGrid = document.getElementById("clearGrid");
       const fileName = document.getElementById("filename");
@@ -275,6 +278,11 @@
 
       toggleFat.addEventListener("click", () => {
         bodyObj.fat = bodyObj.fat === 0 ? 1 : 0;
+        renderAndRedrawCanvas(canvas, ctx, gridItems);
+      });
+
+      toggleType.addEventListener("click", () => {
+        bodyObj.bodyType = bodyObj.bodyType === 0 ? 1 : 0;
         renderAndRedrawCanvas(canvas, ctx, gridItems);
       });
 
