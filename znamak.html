@@ -16,11 +16,11 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        height: 100vh;
         margin: 0;
         background-color: #222; /* Dark background color */
         color: white;
       }
+
       .content {
         display: flex;
         flex-direction: column;
@@ -110,7 +110,11 @@
   </head>
 
   <body>
-    <div style="margin-top: 85px; max-height: 300px">
+    <div id="header">
+      <img src="https://i.imgur.com/ejSn6aa.png" alt="LFWB Logo" />
+    </div>
+
+    <div style="max-height: 300px">
       <canvas
         id="myCanvas"
         width="128"
