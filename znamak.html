@@ -13,6 +13,7 @@
     <style>
       body {
         display: flex;
+        user-select: none; /* while creating the tattoo we don't want to select html */
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -125,9 +126,9 @@
 
     <div class="button-container">
       <button id="turnButton">Turn Sprite</button>
-      <button id="toggleType">Toggle Body Type</button>
+      <button id="toggleType">♂</button>
       <button id="toggleFat">Toggle Fat</button>
-      <button id="changeBackgroundButton">Change Background</button>
+      <button onclick="changeBackgroundImage()">Change Background</button>
     </div>
 
     <div class="infoBlurbContainer">
@@ -148,6 +149,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
     <script type="text/javascript" src="canvas.js"></script>
     <script>
+      const backgroundCanvas = document.getElementById('myCanvas');
       const gridContainer = document.getElementById("gridContainer");
       const saveButton = document.getElementById("saveButton");
       const turnButton = document.getElementById("turnButton");
@@ -284,7 +286,10 @@
       });
 
       toggleType.addEventListener("click", () => {
-        bodyObj.bodyType = bodyObj.bodyType === 0 ? 1 : 0;
+        const isCurrentlyMale = bodyObj.bodyType === 0;
+
+        bodyObj.bodyType = isCurrentlyMale ? 1 : 0;
+        toggleType.innerText = isCurrentlyMale ? '♀' : '♂' ;
         renderAndRedrawCanvas(canvas, ctx, gridItems);
       });
 
@@ -303,17 +308,10 @@
 
       // Function to change the background image
       const changeBackgroundImage = () => {
-        const backgroundCanvas = document.querySelector(".background-canvas");
         currentBackgroundIndex =
           (currentBackgroundIndex + 1) % backgroundImages.length;
         backgroundCanvas.style.backgroundImage = `url(${backgroundImages[currentBackgroundIndex]})`;
       };
-
-      // Add event listener to the button
-      const changeBackgroundButton = document.getElementById(
-        "changeBackgroundButton"
-      );
-      changeBackgroundButton.addEventListener("click", changeBackgroundImage);
     </script>
   </body>
 </html>
