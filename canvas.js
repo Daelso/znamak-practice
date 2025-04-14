@@ -11,11 +11,14 @@ const imageLinks = {
   "001": "https://i.imgur.com/w8rdJci.png", // not fat male back
   "010": "https://i.imgur.com/Ab1T1KA.png", // fat male front
   "011": "https://i.imgur.com/7waSJ7M.png", //fat male back
-  100: "https://i.imgur.com/h7VtDAN.png", //not fat female front
+  100: "https://i.imgur.com/mXriMU5.png", //not fat female front
   101: "https://i.imgur.com/jegcOYX.png", //not fat female back
   110: "https://i.imgur.com/Ab1T1KA.png", //fat female front
   111: "https://i.imgur.com/7waSJ7M.png", //fat female back
 };
+//https://i.imgur.com/mXriMU5.png
+
+//old fem: https://i.imgur.com/h7VtDAN.png
 
 const startingPoints = {
   "000": { tatStartX: 40, tatEndX: 44, tatStartY: 44, tatEndY: 48 }, //not fat male front
